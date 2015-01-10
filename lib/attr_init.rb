@@ -1,4 +1,5 @@
 require "attr_init/version"
+require 'set'
 
 def attr_init(*attrs)
   AttrInit.add_new_attrs(self, attrs)
@@ -42,7 +43,7 @@ module AttrInit
       hidden_attrs = get_attrs(scope.superclass)
       scope.class_variable_set hidden_attrs_variable_name, hidden_attrs + attrs
     rescue NameError => e
-      scope.class_variable_set hidden_attrs_variable_name, attrs
+      scope.class_variable_set hidden_attrs_variable_name, Set.new(attrs)
     end
   end
 
