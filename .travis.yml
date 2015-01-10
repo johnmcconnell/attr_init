@@ -1,0 +1,21 @@
+language: ruby
+
+rvm:
+  - 2.1.0
+
+gemfile:
+  - Gemfile
+
+cache: bundler
+
+env:
+  matrix:
+    - TEST_SUITE="spec"
+
+before_script: "bundle update"
+
+script:
+  - bundle exec rake $TEST_SUITE
+
+notifications:
+  email: false
