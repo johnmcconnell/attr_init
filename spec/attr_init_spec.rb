@@ -37,8 +37,8 @@ describe AttrInit do
       end
     end
 
-    context 'reader_struct' do
-      it 'initializes readers with hash initializer' do
+    context 'accessor_struct' do
+      it 'initializes accessor with hash initializer' do
         object = accessor_struct.new(hash_params)
 
         expect(object.a).to eq 0

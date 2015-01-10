@@ -14,14 +14,24 @@ def attr_init(*attrs)
   end
 end
 
+def attr_hash(*attrs)
+  define_method(:to_h) do
+    attrs.each_with_object({}) do |attr, hash|
+      hash[attr] = send(attr)
+    end
+  end
+end
+
 def reader_struct(*attrs)
   attr_reader *attrs
   attr_init *attrs
+  attr_hash *attrs
 end
 
 def accessor_struct(*attrs)
   attr_accessor *attrs
   attr_init *attrs
+  attr_hash *attrs
 end
 
 module AttrInit
