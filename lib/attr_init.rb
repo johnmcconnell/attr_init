@@ -1,15 +1,10 @@
 require "attr_init/version"
 
 def attr_init(*attrs)
-  begin
-    hidden_attrs = superclass.class_variable_get :@@_hidden_attrs
-    class_variable_set :@@_hidden_attrs, hidden_attrs + attrs
-  rescue NameError => e
-    class_variable_set :@@_hidden_attrs, attrs
-  end
+  AttrInit.add_new_attrs(self, attrs)
 
   define_method(:attr_init) do |params|
-    self.class.class_variable_get(:@@_hidden_attrs).each do |a|
+    AttrInit.get_attrs(self.class).each do |a|
       instance_variable_set "@#{a}", params[a]
     end
   end
@@ -23,8 +18,7 @@ end
 
 def attr_hash(*attrs)
   define_method(:to_h) do
-    self.class.class_variable_get(:@@_hidden_attrs)
-    .each_with_object({}) do |attr, hash|
+    AttrInit.get_attrs(self.class).each_with_object({}) do |attr, hash|
       hash[attr] = public_send(attr)
     end
   end
@@ -43,4 +37,16 @@ def accessor_struct(*attrs)
 end
 
 module AttrInit
+  def self.add_new_attrs(scope, attrs)
+    begin
+      hidden_attrs = get_attrs(scope.superclass)
+      scope.class_variable_set :@@_hidden_attrs, hidden_attrs + attrs
+    rescue NameError => e
+      scope.class_variable_set :@@_hidden_attrs, attrs
+    end
+  end
+
+  def self.get_attrs(scope)
+    scope.class_variable_get :@@_hidden_attrs
+  end
 end
