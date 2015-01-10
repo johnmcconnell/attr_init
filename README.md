@@ -8,8 +8,9 @@ Status](https://coveralls.io/repos/johnmcconnell/attr_init/badge.png)](https://c
 
 So ruby has `Struct` but I never use it because:
   1. I have to extend the class with `Struct`
-  2. It makes your instance_variables public
+  2. It makes your `instance_variables` public
   3. It does not use hash initialization
+  4. It does not support inheritance!!!
 
 ## Installation
 
