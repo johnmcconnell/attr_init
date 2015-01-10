@@ -1,5 +1,8 @@
 # AttrInit
-
+[![Gem
+Version](https://badge.fury.io/rb/attr_init.svg)](http://badge.fury.io/rb/attr_init)
+[![Build
+Status](https://travis-ci.org/johnmcconnell/attr_init.svg?branch=master)](https://travis-ci.org/johnmcconnell/attr_init)
 [![Coverage
 Status](https://coveralls.io/repos/johnmcconnell/attr_init/badge.png)](https://coveralls.io/r/johnmcconnell/attr_init)
 
