@@ -40,13 +40,17 @@ module AttrInit
   def self.add_new_attrs(scope, attrs)
     begin
       hidden_attrs = get_attrs(scope.superclass)
-      scope.class_variable_set :@@_hidden_attrs, hidden_attrs + attrs
+      scope.class_variable_set hidden_attrs_variable_name, hidden_attrs + attrs
     rescue NameError => e
-      scope.class_variable_set :@@_hidden_attrs, attrs
+      scope.class_variable_set hidden_attrs_variable_name, attrs
     end
   end
 
   def self.get_attrs(scope)
-    scope.class_variable_get :@@_hidden_attrs
+    scope.class_variable_get hidden_attrs_variable_name
+  end
+
+  def self.hidden_attrs_variable_name
+    :@@_hidden_attrs
   end
 end
