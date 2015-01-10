@@ -94,6 +94,19 @@ d.a = 2
 => 2
 ```
 
+### Struct adds #to_h
+```ruby
+class Dah
+  accessor_struct :a, :b
+end
+
+d = Dah.new(a: 0, b: 1)
+=> #<Dah:0x81ad601c @a=0, @b=1>
+
+d.to_h
+=> {:a => 0, :b => 1}
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/[johnmcconnell]/attr_init/fork )
