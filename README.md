@@ -1,6 +1,12 @@
 # AttrInit
 
-TODO: Write a gem description
+[![Coverage
+Status](https://coveralls.io/repos/johnmcconnell/attr_init/badge.png)](https://coveralls.io/r/johnmcconnell/attr_init)
+
+So ruby has `Struct` but I never use it because:
+  1. I have to extend the class with `Struct`
+  2. It makes your instance_variables public
+  3. It does not use hash initialization
 
 ## Installation
 
@@ -9,6 +15,17 @@ Add this line to your application's Gemfile:
 ```ruby
 gem 'attr_init'
 ```
+
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install attr_init
+
+## Usage
 
 ### Initializer
 
@@ -19,6 +36,9 @@ end
 
 f = Foo.new(a: 0, b: 1)
 => #<Foo:0xb811601c @a=0, @b=1>
+
+f.a
+NoMethodError: undefined method: a' for #<Bar:0xb811601c @a=0, @b=1>
 ```
 If you want to you can override it:
 
@@ -34,14 +54,12 @@ class Foo
     end
   end
 end
+
 ```
 
 ### Initializer with readers
 
 ```ruby
-f.a
-NoMethodError: undefined method `a' for #<Bar:0xb811601c @a=0, @b=1>
-
 class Bar
   reader_struct :a, :b
 end
@@ -53,7 +71,7 @@ b.a
 => 0
 
 b.a = 2
-NoMethodError: undefined method `a=' for #<Bar:0xb931e250 @a=0, @b=1>
+NoMethodError: undefined method: a=' for #<Bar:0xb931e250 @a=0, @b=1>
 ```
 
 ### Initializer with accessors
@@ -72,18 +90,6 @@ d.a
 d.a = 2
 => 2
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install attr_init
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Contributing
 
