@@ -25,6 +25,12 @@ describe AttrInit do
   end
 
   describe '::new' do
+    it 'defines #to_h' do
+      object = reader_struct.new(hash_params)
+
+      expect(object.to_h).to eq hash_params
+    end
+
     context 'reader_struct' do
       it 'initializes readers with hash initializer' do
         object = reader_struct.new(hash_params)
