@@ -1,5 +1,5 @@
-require 'spec_helper'
 require 'attr_init'
+require 'spec_helper'
 
 describe AttrInit do
   let(:symbols) do
