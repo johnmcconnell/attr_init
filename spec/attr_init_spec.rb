@@ -25,6 +25,25 @@ describe AttrInit do
   end
 
   describe '::new' do
+    it 'allows super class' do
+      class A
+        reader_struct :a
+      end
+
+      class B < A
+        reader_struct :b
+        def initialize(params)
+          super
+          attr_init(params)
+        end
+      end
+
+      object = B.new(a: 0, b: 1)
+
+      expect(object.b).to eq 1
+      expect(object.a).to eq 0
+    end
+
     it 'defines #to_h' do
       object = reader_struct.new(hash_params)
 

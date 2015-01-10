@@ -1,8 +1,15 @@
 require "attr_init/version"
 
 def attr_init(*attrs)
+  begin
+    hidden_attrs = superclass.class_variable_get :@@_hidden_attrs
+    class_variable_set :@@_hidden_attrs, hidden_attrs + attrs
+  rescue NameError => e
+    class_variable_set :@@_hidden_attrs, attrs
+  end
+
   define_method(:attr_init) do |params|
-    attrs.each do |a|
+    self.class.class_variable_get(:@@_hidden_attrs).each do |a|
       instance_variable_set "@#{a}", params[a]
     end
   end
@@ -16,8 +23,9 @@ end
 
 def attr_hash(*attrs)
   define_method(:to_h) do
-    attrs.each_with_object({}) do |attr, hash|
-      hash[attr] = send(attr)
+    self.class.class_variable_get(:@@_hidden_attrs)
+    .each_with_object({}) do |attr, hash|
+      hash[attr] = public_send(attr)
     end
   end
 end
