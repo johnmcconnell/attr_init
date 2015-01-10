@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["johnnyillinois@gmail.com"]
   spec.summary       = %q{Reader structs for ruby finally!.}
   spec.description   = %q{Reader structs for ruby finally!.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/johnmcconnell/attr_init"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "simplecov", "~> 0.8.0"
   spec.add_development_dependency "coveralls", "~> 0.7.0"
-  spec.add_development_dependency "bundler", "~> 1.7"
+  spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec"
 end
