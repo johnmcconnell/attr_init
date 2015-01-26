@@ -36,8 +36,10 @@ end
 
 def fattr_hash(*attrs)
   class_eval do
-    self.class.fattrs.each_with_object({}) do |key, hash|
-      hash[key] = send key
+    def to_hash
+      self.class.fattrs.each_with_object({}) do |key, hash|
+        hash[key] = send key
+      end
     end
   end
 end
