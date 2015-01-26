@@ -1,4 +1,5 @@
 require "attr_init/version"
+require 'fattr'
 require 'set'
 
 def attr_init(*attrs)
@@ -17,6 +18,30 @@ def attr_init(*attrs)
   end
 end
 
+def fattr_init(*attrs)
+  class_eval do
+    def initialize(params)
+      fattr_init(params)
+    end
+
+    protected
+
+    def fattr_init(params)
+      params.each do |key, value|
+        send key, value
+      end
+    end
+  end
+end
+
+def fattr_hash(*attrs)
+  class_eval do
+    self.class.fattrs.each_with_object({}) do |key, hash|
+      hash[key] = send key
+    end
+  end
+end
+
 def attr_hash(*attrs)
   define_method(:to_h) do
     AttrInit.get_attrs(self.class).each_with_object({}) do |attr, hash|
@@ -32,9 +57,9 @@ def reader_struct(*attrs)
 end
 
 def accessor_struct(*attrs)
-  attr_accessor *attrs
-  attr_init *attrs
-  attr_hash *attrs
+  fattrs *attrs
+  fattr_init *attrs
+  fattr_hash *attrs
 end
 
 module AttrInit
